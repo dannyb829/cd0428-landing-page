@@ -66,7 +66,7 @@ section {
 /* Navigation Styles*/
 /* hide navbar when not scrolling */
 .page__header{
-    opacity: 0;
+    opacity: 0.01;
     transition-duration: 1s;
 }
 /* this class will show item when scrolling */
@@ -116,13 +116,14 @@ background: rgba(255, 255, 255, 0.05);
 }
 
 .navbar__menu .menu__link:hover {
-    background: #333;
-    color: #fff;
-    transition: ease 0.3s all;
+    cursor: pointer;
+    color: dodgerblue;
 }
 
 .active-li.active-li {
-    color: dodgerblue;
+    background: #333;
+    color: #fff;
+    transition: ease 0.3s all;
 }
 
 /* Header Styles */
