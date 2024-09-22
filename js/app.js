@@ -99,11 +99,11 @@ window.addEventListener('scroll', () =>{
     showNavOnScroll()
 })
 
-// Scroll to anchor ID using scrollTO event
-//finds section based on injected data in menu links, scroll smoothly into view
 // function applied to eventlistener on nav above
 function scrollToAnchor(identifier) {
+    //finds section based on injected data in menu links, scroll smoothly into view
     const anchor = document.querySelector(`[data-nav= "${identifier}"]`)
+    // Scroll to anchor ID using scrollTO event
     anchor.scrollIntoView({behavior:"smooth"})
 }
 
@@ -112,18 +112,17 @@ function scrollToAnchor(identifier) {
  * Begin Events
  * 
 */
-// hide nav festure
-// only show for a moment on scroll
-// if scrolled to top stay on
 
 function showNavOnScroll(){
     const nav = document.getElementById('nav-header')
     nav.classList.add('show-on-scroll')
 
+    //remain visible if scrolled to top
     if (getDistanceFromTop() > 0){
         return
     } 
     else if (nav.classList.contains('show-on-scroll')){
+    //fade away otherwise ('remove show class')
         setTimeout(()=>{
             nav.classList.remove('show-on-scroll')
         },5000)
@@ -134,11 +133,12 @@ function showNavOnScroll(){
 const scrollToTopArrow = document.createElement('div')
 scrollToTopArrow.innerHTML = '<span>↑ Back to top</span>'
 scrollToTopArrow.id = 'back-to-top'
-
+// back to top button will always be appended to last section
 const lastSection = allSections[allSections.length - 1]
 lastSection.append(scrollToTopArrow)
 
 scrollToTopArrow.addEventListener('click', () => {
+    //on click scroll back to top
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
