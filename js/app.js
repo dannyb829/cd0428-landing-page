@@ -29,9 +29,8 @@
  * Start Helper Functions
  * 
 */
-
-
-
+const navBar = document.getElementById('navbar__list')
+const allSections = document.getElementsByTagName('section')
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -39,7 +38,16 @@
 */
 
 // build the nav
+function addSectionsToNav() {
+    for (const section of allSections) {
+        const navItem = document.createElement('li')
+        navItem.innerText = section.dataset.nav
+        navItem.classList.add('menu__link')
+        navBar.append(navItem)
+    }
+}
 
+addSectionsToNav()
 
 // Add class 'active' to section when near top of viewport
 
