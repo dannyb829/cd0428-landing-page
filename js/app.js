@@ -26,6 +26,7 @@
 const navBar = document.getElementById('navbar__list')
 const allSections = document.getElementsByTagName('section')
 
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -37,6 +38,12 @@ function iterateOverSections (callBack){
         callBack(section)
     }
 }
+
+function getDistanceFromTop(){
+    return document.body.getBoundingClientRect().top
+}
+
+
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -74,20 +81,23 @@ function makeSectionActive() {
         //Find a value that works best, but 150 seems to be a good start.
         if (box.top <= 150 && box.bottom >= 150) {
         //apply active state on current section and corresponding Nav link
-        section.classList.add('active')
+        section.classList.add('your-active-class')
         //alter nav to show active
         menuLink.classList.add('active-li')
         
     } else {
         //Remove active state from other section and corresponding Nav link
-        section.classList.remove('active')
+        section.classList.remove('your-active-class')
         //alter nav to show inactive
         menuLink.classList.remove('active-li')
         }
     })
 }
 
-window.addEventListener('scroll', makeSectionActive)
+window.addEventListener('scroll', () =>{
+    makeSectionActive()
+    showNavOnScroll()
+})
 
 // Scroll to anchor ID using scrollTO event
 //finds section based on injected data in menu links, scroll smoothly into view
@@ -102,11 +112,36 @@ function scrollToAnchor(identifier) {
  * Begin Events
  * 
 */
+// hide nav festure
+// only show for a moment on scroll
+// if scrolled to top stay on
 
-// Build menu 
+function showNavOnScroll(){
+    const nav = document.getElementById('nav-header')
+    nav.classList.add('show-on-scroll')
 
-// Scroll to section on link click
+    if (getDistanceFromTop() > 0){
+        return
+    } 
+    else if (nav.classList.contains('show-on-scroll')){
+        setTimeout(()=>{
+            nav.classList.remove('show-on-scroll')
+        },5000)
+    }
+}
 
-// Set sections as active
+//scroll to top button 
+const scrollToTopArrow = document.createElement('div')
+scrollToTopArrow.innerHTML = '<span>↑ Back to top</span>'
+scrollToTopArrow.id = 'back-to-top'
 
+const lastSection = allSections[allSections.length - 1]
+lastSection.append(scrollToTopArrow)
 
+scrollToTopArrow.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+} 
+)
