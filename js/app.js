@@ -31,7 +31,7 @@ const allSections = document.getElementsByTagName('section')
  * Start Helper Functions
  * 
 */
-
+// helper function iterator
 function iterateOverSections (callBack){
     for(const section of allSections){
         callBack(section)
@@ -51,6 +51,8 @@ function addSectionsToNav() {
         menuLink.innerText = section.dataset.nav
         menuLink.id = section.dataset.nav
         menuLink.classList.add('menu__link')
+        // click to scroll to anchor in section
+        menuLink.addEventListener('click', () => scrollToAnchor(section.dataset.nav))
         navBar.append(menuLink)
         //create individual menu link for each section extracting name from dataset
         // slap it on the DOM
@@ -85,10 +87,15 @@ function makeSectionActive() {
     })
 }
 
-document.addEventListener('scroll', makeSectionActive)
+window.addEventListener('scroll', makeSectionActive)
 
 // Scroll to anchor ID using scrollTO event
-
+//finds section based on injected data in menu links, scroll smoothly into view
+// function applied to eventlistener on nav above
+function scrollToAnchor(identifier) {
+    const anchor = document.querySelector(`[data-nav= "${identifier}"]`)
+    anchor.scrollIntoView({behavior:"smooth"})
+}
 
 /**
  * End Main Functions
